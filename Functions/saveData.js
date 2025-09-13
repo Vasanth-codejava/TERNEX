@@ -1,32 +1,24 @@
-const { Client } = require("pg");
+import fetch from "node-fetch";
 
-exports.handler = async function(event, context) {
-  const client = new Client({
-    connectionString: process.env.DB_URL,
-    ssl: { rejectUnauthorized: false } // 🔹 required for Neon
-  });
-
+export async function handler(event, context) {
   try {
-    await client.connect();
+    const body = JSON.parse(event.body);
 
-    const { name, college } = JSON.parse(event.body);
+    const response = await fetch("YOUR_WEB_APP_URL", { // <-- replace this
+      method: "POST",
+      body: JSON.stringify(body)
+    });
 
-    await client.query(
-      "INSERT INTO form_data(name, college) VALUES($1, $2)",
-      [name, college]
-    );
-
-    await client.end();
+    const result = await response.json();
 
     return {
       statusCode: 200,
-      body: JSON.stringify({ message: "Data saved successfully!" })
+      body: JSON.stringify(result)
     };
-  } catch (error) {
-    console.error(error); // check Netlify logs
+  } catch (err) {
     return {
       statusCode: 500,
-      body: JSON.stringify({ message: "Error saving data", error: error.message })
+      body: JSON.stringify({ message: "Error: " + err })
     };
   }
-};
+}
