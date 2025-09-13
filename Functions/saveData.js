@@ -1,10 +1,9 @@
-// functions/saveData.js
-const { Client } = require('pg');
+const { Client } = require("pg");
 
-exports.handler = async function (event, context) {
+exports.handler = async function(event, context) {
   const client = new Client({
-    connectionString: process.env.DB_URL, // your Netlify env variable
-    ssl: { rejectUnauthorized: false }    // required for Neon
+    connectionString: process.env.DB_URL,
+    ssl: { rejectUnauthorized: false } // 🔹 required for Neon
   });
 
   try {
@@ -12,9 +11,8 @@ exports.handler = async function (event, context) {
 
     const { name, college } = JSON.parse(event.body);
 
-    // Adjust table & columns according to your DB
     await client.query(
-      'INSERT INTO students(name, college) VALUES($1, $2)',
+      "INSERT INTO form_data(name, college) VALUES($1, $2)",
       [name, college]
     );
 
@@ -22,13 +20,13 @@ exports.handler = async function (event, context) {
 
     return {
       statusCode: 200,
-      body: JSON.stringify({ message: 'Data saved successfully!' })
+      body: JSON.stringify({ message: "Data saved successfully!" })
     };
   } catch (error) {
-    console.error(error);
+    console.error(error); // check Netlify logs
     return {
       statusCode: 500,
-      body: JSON.stringify({ message: 'Error saving data' })
+      body: JSON.stringify({ message: "Error saving data", error: error.message })
     };
   }
 };
