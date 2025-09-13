@@ -5,12 +5,41 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Simple Form</title>
 <style>
-  body { background-color: black; color: cyan; font-family: Arial, sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; }
-  form { display: flex; flex-direction: column; gap: 15px; background: #111; padding: 20px; border-radius: 10px; }
-  input, button { padding: 10px; border-radius: 5px; border: none; }
-  input:hover { background-color: #222; }
-  button { background-color: cyan; color: black; cursor: pointer; font-weight: bold; }
-  button:hover { background-color: #00bcd4; }
+  body { 
+    background-color: black; 
+    color: cyan; 
+    font-family: Arial, sans-serif; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    height: 100vh; 
+  }
+  form { 
+    display: flex; 
+    flex-direction: column; 
+    gap: 15px; 
+    background: #111; 
+    padding: 20px; 
+    border-radius: 10px; 
+    box-shadow: 0 0 15px cyan; 
+  }
+  input, button { 
+    padding: 10px; 
+    border-radius: 5px; 
+    border: none; 
+  }
+  input:hover { 
+    background-color: #222; 
+  }
+  button { 
+    background-color: cyan; 
+    color: black; 
+    cursor: pointer; 
+    font-weight: bold; 
+  }
+  button:hover { 
+    background-color: #00bcd4; 
+  }
 </style>
 </head>
 <body>
@@ -27,7 +56,7 @@ form.addEventListener('submit', e => {
   const data = new FormData(form);
   const params = new URLSearchParams(data);
 
-  fetch('PASTE_YOUR_WEB_APP_URL_HERE', {
+  fetch('https://script.google.com/macros/s/AKfycbz5hy5Fmu6B8QqI7Ryd9q6mmZyhElfcFWcK9jKE63E-75oxW7sqy4zYrwQCapWBXGkz9w/exec', {
     method: 'POST',
     body: params
   })
