@@ -151,25 +151,27 @@
     });
 
     // FORM SUBMIT → Netlify Function
-    const form = document.getElementById("cyberForm");
-    form.addEventListener("submit", async function(e) {
-      e.preventDefault();
-      const name = document.getElementById("name").value;
-      const college = document.getElementById("college").value;
+   const form = document.getElementById("cyberForm");
+form.addEventListener("submit", async function(e) {
+  e.preventDefault();
+  const name = document.getElementById("name").value;
+  const college = document.getElementById("college").value;
 
-      try {
-        const response = await fetch("/.netlify/functions/saveData", {
-          method: "POST",
-          body: JSON.stringify({ name, college })
-        });
-        const result = await response.json();
-        alert("✓ " + result.message);
-        form.reset();
-      } catch (error) {
-        console.error(error);
-        alert("❌ Failed to send data. Check console for errors.");
-      }
+  try {
+    const response = await fetch("/.netlify/functions/saveData", {
+      method: "POST",
+      body: JSON.stringify({ name, college })
     });
+    const result = await response.json();
+    alert("✓ " + result.message);
+    form.reset();
+  } catch (err) {
+    console.error(err);
+    alert("❌ Failed to send data. Check console for errors.");
+  }
+});
+
   </script>
 </body>
 </html>
+
